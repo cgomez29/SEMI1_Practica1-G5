@@ -1,0 +1,26 @@
+{
+  "name": "nodejs-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsc-watch --onSuccess \"node dist/index.js\" ",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "license": "MIT",
+  "repository": "https://github.com/cgomez29/-SEMI1-Practica1-G5",
+  "author": "G5 - 201801480",
+  "dependencies": {
+    "cors": "2.8.5",
+    "express": "4.17.3",
+    "morgan": "1.10.0",
+    "sequelize": "6.16.3"
+  },
+  "devDependencies": {
+    "@types/cors": "2.8.12",
+    "@types/express": "4.17.13",
+    "@types/morgan": "1.9.3",
+    "tsc-watch": "4.6.0",
+    "typescript": "4.5.5"
+  }
+}
