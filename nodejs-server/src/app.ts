@@ -2,10 +2,25 @@ import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 
+import db from './config/database.config';
+
 const app = express();
 
 // settings 
-app.set('port', 4000);
+const PORT = process.env.PORT;
+app.set('port', PORT);
+
+// db conection test
+const test = async () => {
+    try {
+        await db.authenticate();
+        console.log('Dabase is connected...');
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+test();
 
 // middlewares 
 app.use(morgan('dev'));

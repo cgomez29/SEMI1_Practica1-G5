@@ -1,3 +1,23 @@
-yarn add express morgan cors 
+## Get started 
 
-yarn add -D typescript tsc-watch @types/cors @types/express @types/morgan 
+### `yarn`
+
+## Developer environment
+
+### `yarn run dev`
+
+
+## Production environment
+### `yarn build`
+### `yarn start`
+
+<br>
+
+### Configuration 
+
+| Variable | Description |
+| ------ | ------ | 
+| DB_HOST | Database server |
+| DB_NAME | Database name |
+| DB_USERNAME | Database username |
+| PORT | NodeJS server port  |
