@@ -1,10 +1,11 @@
-import express from 'express';
+import express, { Application, Request, Response } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 
 import db from './config/database.config';
+import userRoutes from './routes/auth.routes';
 
-const app = express();
+const app: Application = express();
 
 // settings 
 const PORT = process.env.PORT;
@@ -30,8 +31,9 @@ app.use(express.json());
 app.use(express.static('public'));
 
 // routes 
-app.get('/api', (req, res) => {
+app.get('/api', (req : Request, res : Response) => {
     res.json({hello: 'world'});
 });
+app.use(``, userRoutes);
 
 export default app;
