@@ -1,14 +1,12 @@
-FROM node:latest
-ENV NODE_ENV=production
-
+FROM node:16 AS build-env
+COPY . /app
 WORKDIR /app
 
-COPY ["package.json", "package-lock.json*", "./"]
+RUN npm ci --only=production
 
-RUN npm install --production
+FROM gcr.io/distroless/nodejs:16
+COPY --from=build-env /app /app
+WORKDIR /app
 
-COPY . .
-
-EXPOSE 3000
-
-CMD [ "npm", "start" ]
+EXPOSE 4000
+CMD ["./dist/index.js"]

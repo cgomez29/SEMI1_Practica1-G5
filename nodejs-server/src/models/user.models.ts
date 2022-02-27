@@ -1,7 +1,7 @@
 import { DataTypes, Model} from "sequelize";
 import db from '../config/database.config';
 
-export interface UserAttributes {
+export interface UserAttributes extends Model {
     id: number;
     username: string;
     password: string;
@@ -9,37 +9,32 @@ export interface UserAttributes {
     updatedAt?: Date;
 }
 
-export default class UserIntance extends Model<UserAttributes> {}
-
-UserIntance.init(
-    {
-        id: {
-            type: DataTypes.INTEGER,
-            autoIncrement: true,
-            primaryKey: true,
-        },
-        username: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: true,
-        },
-        password: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        createdAt: {
-            type: DataTypes.DATE,
-            allowNull: false,
-            defaultValue: DataTypes.NOW,
-        },
-        updatedAt: {
-            type: DataTypes.DATE,
-            allowNull: false,
-            defaultValue: DataTypes.NOW,
-        },
+const User = db.define<UserAttributes>('users', {
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
     },
-    {
-        sequelize:db,
-        modelName: 'users',
-    }
-);
+    username: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+    },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    createdAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW,
+    },
+    updatedAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW,
+    },
+});
+
+
+export default User;
