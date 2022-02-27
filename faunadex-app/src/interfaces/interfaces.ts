@@ -12,7 +12,6 @@ export interface UserRegister {
 export interface Auth {
   userName: string;
   logged: boolean;
-  loading: boolean;
 }
 
 export type AuthAction =
@@ -20,6 +19,22 @@ export type AuthAction =
       type: ActionType.AUTH_LOGIN;
       payload: Auth;
     }
-  | { type: ActionType.AUTH_LOGOUT }
-  | { type: ActionType.AUTH_LOADING }
-  | { type: ActionType.AUTH_FAIL };
+  | { type: ActionType.AUTH_LOGOUT };
+
+export interface UI {
+  loading: boolean;
+  msgError: string;
+}
+
+export type UiAction =
+  | {
+      type: ActionType.UI_SET_ERROR;
+      payload: string;
+    }
+  | {
+      type: ActionType.UI_REMOVE_ERROR;
+    }
+  | {
+      type: ActionType.UI_START_LOADING;
+    }
+  | { type: ActionType.UI_FINISH_LOADING };

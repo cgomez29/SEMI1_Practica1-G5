@@ -1,8 +1,10 @@
 import { ActionType } from '../types/types';
-import { AuthAction } from '../../interfaces/interfaces';
+import { AuthAction, UiAction, UserRegister } from '../../interfaces/interfaces';
 import { Dispatch } from 'redux';
 import axios from 'axios';
+import { startLoading, finishLoading, setError } from './ui';
 
+type ActionsType = AuthAction | UiAction;
 // =============================================================================
 // DISPATCH ACCIONS
 // =============================================================================
@@ -12,7 +14,6 @@ export const login = (userName: string): AuthAction => {
     payload: {
       userName,
       logged: true,
-      loading: false,
     },
   };
 };
@@ -24,36 +25,31 @@ export const logout = (): AuthAction => ({
 // DISPATCH ACCIONS ASINCRONAS
 // =============================================================================
 
-export const loginAsync = (userName: string, password: string) => {
-  return async (dispatch: Dispatch<AuthAction>) => {
+export const startLogin =
+  (userName: string, password: string) => async (dispatch: Dispatch<ActionsType>) => {
     try {
-      dispatch({
-        type: ActionType.AUTH_LOADING,
-      });
+      dispatch(startLoading());
+
       const res = await axios.get('https://pokeapi.co/api/v2/pokemon/pikachu');
       console.log(res.data);
       dispatch(login(userName));
+      dispatch(finishLoading());
     } catch (e) {
-      dispatch({
-        type: ActionType.AUTH_FAIL,
-      });
+      // dispatch(setError('Credenciales Invalidas'));
+      dispatch(setError('Error al iniciar sesion'));
     }
   };
-};
 
-// export const loginAsync =
-//   (userName: string): ThunkAction<void, RootState, unknown, AuthAction> =>
-//   async (dispatch) => {
-//     try {
-//       dispatch({
-//         type: ActionType.AUTH_LOADING,
-//       });
-//       const res = await axios.get('https://pokeapi.co/api/v2/pokemon/pikachu');
-//       console.log(res.data);
-//       dispatch(login(userName));
-//     } catch (e) {
-//       dispatch({
-//         type: ActionType.AUTH_FAIL,
-//       });
-//     }
-//   };
+export const startRegister =
+  (user: UserRegister) => async (dispatch: Dispatch<ActionsType>) => {
+    try {
+      dispatch(startLoading());
+
+      const res = await axios.get('https://pokeapi.co/api/v2/pokemon/pikachu');
+      console.log(res.data);
+      dispatch(login(user.username));
+      dispatch(finishLoading());
+    } catch (e) {
+      dispatch(setError('Error al iniciar sesion'));
+    }
+  };

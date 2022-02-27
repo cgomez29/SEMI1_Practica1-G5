@@ -4,7 +4,8 @@ import * as Yup from 'yup';
 import { MyTextInput } from '../components/MyTextInput';
 // import { useAppDispatch } from '../hooks/useRedux';
 import { useDispatch } from 'react-redux';
-import { loginAsync } from '../redux/actions/auth';
+import { startLogin, login } from '../redux/actions/auth';
+import { useAppSelector } from '../hooks/useRedux';
 
 const validationSchema = Yup.object({
   username: Yup.string().min(3, 'Debe tener 3 caracteres o mas').required('Requerido'),
@@ -15,7 +16,9 @@ const validationSchema = Yup.object({
 
 export const LoginPage = () => {
   const dispatch = useDispatch();
+  const { loading } = useAppSelector((state) => state.ui);
 
+  if (loading) return <h1>Cargando ...</h1>;
   return (
     <div
       style={{
@@ -30,7 +33,7 @@ export const LoginPage = () => {
         }}
         onSubmit={(values, { resetForm }) => {
           // dispatch(login(values.username));
-          dispatch(loginAsync(values.username, values.password));
+          dispatch(startLogin(values.username, values.password));
           resetForm();
         }}
         validationSchema={validationSchema}
