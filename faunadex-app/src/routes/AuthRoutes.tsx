@@ -1,8 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 
 import { NavbarLogin } from '../components/nav/NavbarLogin';
-import { LoginPage } from '../pages/LoginPage';
-import { RegisterPage } from '../pages/RegisterPage';
+import { LoginPage, RegisterPage } from '../pages';
 
 export const AuthRoutes = () => {
   return (

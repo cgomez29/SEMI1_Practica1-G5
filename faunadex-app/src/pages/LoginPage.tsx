@@ -1,10 +1,9 @@
 import { Formik, Form } from 'formik';
+import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 
 import { MyTextInput } from '../components/MyTextInput';
-// import { useAppDispatch } from '../hooks/useRedux';
-import { useDispatch } from 'react-redux';
-import { startLogin, login } from '../redux/actions/auth';
+import { startLogin } from '../redux/actions/auth';
 import { useAppSelector } from '../hooks/useRedux';
 
 const validationSchema = Yup.object({
@@ -25,6 +24,7 @@ export const LoginPage = () => {
         width: '50%',
         margin: '0px auto',
       }}
+      className="animate__animated animate__fadeIn animate__fast"
     >
       <Formik
         initialValues={{
@@ -32,7 +32,6 @@ export const LoginPage = () => {
           password: '',
         }}
         onSubmit={(values, { resetForm }) => {
-          // dispatch(login(values.username));
           dispatch(startLogin(values.username, values.password));
           resetForm();
         }}

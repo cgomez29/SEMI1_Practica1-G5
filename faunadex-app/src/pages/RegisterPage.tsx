@@ -52,6 +52,7 @@ export const RegisterPage = () => {
         width: '50%',
         margin: '0px auto',
       }}
+      className="animate__animated animate__fadeIn animate__fast"
     >
       <Formik
         initialValues={intialValues}

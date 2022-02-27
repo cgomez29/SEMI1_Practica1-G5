@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
+
 import { Navbar } from '../components/nav/Navbar';
-import { DashboardPage } from '../pages/DashboardPage';
+import { AlbumPage, DashboardPage, PhotoPage, ProfilePage, UploadPage } from '../pages';
 
 export const DashboardRoutes = () => {
   return (
@@ -9,6 +10,10 @@ export const DashboardRoutes = () => {
       <div className="p-5">
         <Routes>
           <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/upload" element={<UploadPage />} />
+          <Route path="/album" element={<AlbumPage />} />
+          <Route path="/photo" element={<PhotoPage />} />
           {/* <Route path="/auth/register" element={<RegisterPage />} /> */}
 
           <Route path="/" element={<DashboardPage />} />
