@@ -1,10 +1,10 @@
 import { NavLink } from 'react-router-dom';
-export const NavbarLogin = () => {
+export const Navbar = () => {
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark shadow-5-strong">
         <div className="container-fluid">
-          <NavLink className="navbar-brand" to="/auth/login">
+          <NavLink className="navbar-brand" to="/dashboard">
             <i className="fa-solid fa-paw me-2"></i>
             Faunadex
           </NavLink>
@@ -15,19 +15,9 @@ export const NavbarLogin = () => {
                   className={({ isActive }) =>
                     isActive ? 'nav-link active' : 'nav-link'
                   }
-                  to="/auth/login"
+                  to="/dashboard"
                 >
-                  Login
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink
-                  className={({ isActive }) =>
-                    isActive ? 'nav-link active' : 'nav-link'
-                  }
-                  to="/auth/register"
-                >
-                  Registro
+                  Hola mundo
                 </NavLink>
               </li>
             </ul>
