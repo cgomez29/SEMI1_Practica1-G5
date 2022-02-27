@@ -1,9 +1,13 @@
 import express, { Application, Request, Response } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
+import fileUpload from 'express-fileupload';
+import passport from 'passport';
+import passport_middleware from './middlewares/passport.middlewares'
 
 import db from './config/database.config';
-import userRoutes from './routes/auth.routes';
+import authRoutes from './routes/auth.routes';
+import userRoutes from './routes/private.routes';
 
 const app: Application = express();
 
@@ -25,15 +29,17 @@ test();
 
 // middlewares 
 app.use(morgan('dev'));
+app.use(fileUpload());
 app.use(cors());
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use(express.static('public'));
+app.use(passport.initialize());
+passport.use(passport_middleware);
+
 
 // routes 
-app.get('/api', (req : Request, res : Response) => {
-    res.json({hello: 'world'});
-});
-app.use(``, userRoutes);
+app.use(`/api`, userRoutes);
+app.use(`/api`, authRoutes);
 
 export default app;
