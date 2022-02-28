@@ -1,0 +1,6 @@
+===== ENVIRONMENT
+    virtualenv -p python3 env
+    source venv/bin/activate
+
+===== INSTALLATIONS
+    pip install flask flask_mysqldb boto3 flask_cors 
