@@ -1,18 +1,69 @@
 import { Router } from 'express';
 
-import passport from 'passport'
+import passport, { session } from 'passport'
 import { uploadFile } from '../controllers/upload.controllers';
 import {
-    getUsuarios,
+    getUsuario,
 } from '../controllers/user.controllers';
+import {
+    getAllAlbums,
+    createAlbum,
+    updateAlbum,
+} from '../controllers/folder.controllers'
+import { 
+    getAllPhotos
+} from '../controllers/photo.controllers'
 
 const router: Router = Router(); 
 
+// ======================================================
+// User
+// ======================================================
+
+// return user information
 router.get(
-    '/user',
+    '/profile/:id',
     passport.authenticate('jwt', { session: false }),
-    getUsuarios
+    getUsuario
 );
+
+// ======================================================
+// Album = Folder
+// ======================================================
+
+router.post(
+    '/album',
+    passport.authenticate('jwt', { session: false}),
+    createAlbum
+);
+
+router.put(
+    '/album/:id',
+    passport.authenticate('jwt', { session: false}),
+    updateAlbum
+);
+
+// return all albums
+router.get(
+    '/album/:id',
+    passport.authenticate('jwt', { session: false }),
+    getAllAlbums
+);
+
+
+
+// ======================================================
+// Photo
+// ======================================================
+
+// return all photos by album 
+router.get(
+    '/album/photo/:id',
+    passport.authenticate('jwt', { session: false }),
+    getAllPhotos
+);
+
+
 router.post(
     '/upload',
     passport.authenticate('jwt', { session: false }),

@@ -21,12 +21,11 @@ export const buildResponse = (
 export const buildErrorResponse = (
     message: string,
     err: any, 
-    data: any,
 ): Response => {
     let res: Response = {
         status: false,
         message: message,
-        data: data,
+        data: null,
         errors: err,
     };
     return res;
