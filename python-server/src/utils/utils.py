@@ -4,8 +4,8 @@ from io import BytesIO
 from PIL import Image
 import base64
 
-from settings import BUCKET_NAME
-from s3 import S3
+from src.config.env import BUCKET_NAME
+from src.config.s3 import S3
 
 
 def response(status_: bool, token_: str, usuario_: str, idUsuario_: int, error_: str = None):

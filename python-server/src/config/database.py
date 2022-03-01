@@ -1,5 +1,5 @@
 import pymysql
-from settings import DB_ENDPOINT, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD
+from src.config.env import DB_ENDPOINT, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD
 
 # database connection
 DB = pymysql.connect(
