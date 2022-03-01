@@ -9,7 +9,7 @@ export interface UserAttributes extends Model {
     urlFoto: string;
     createdAt?: Date;
     updatedAt?: Date;
-}
+};
 
 const User = db.define<UserAttributes>('usuario', {
     idUsuario: {

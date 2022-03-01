@@ -10,7 +10,7 @@ const opts: StrategyOptions = {
 
 export default new Strategy(opts, async (payload, done) => {
     try {
-        const user = await User.findOne({where: { id: payload.id}});
+        const user = await User.findOne({where: { idUsuario: payload.idUsuario}});
         if(user) 
             return done(null, user);
         return done(null, false);
