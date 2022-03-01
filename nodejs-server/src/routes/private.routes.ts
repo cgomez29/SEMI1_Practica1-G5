@@ -4,6 +4,7 @@ import passport, { session } from 'passport'
 import { uploadFile } from '../controllers/upload.controllers';
 import {
     getUsuario,
+    updateProfile
 } from '../controllers/user.controllers';
 import {
     getAllAlbums,
@@ -25,6 +26,12 @@ router.get(
     '/profile/:id',
     passport.authenticate('jwt', { session: false }),
     getUsuario
+);
+
+router.put(
+    '/profile/:id',
+    passport.authenticate('jwt', { session: false }),
+    updateProfile
 );
 
 // ======================================================
