@@ -1,13 +1,16 @@
 import User, { UserAttributes } from '../models/user.models';
 
 // for register user
-export const verifyCredentialAndUsername = async (user: UserAttributes) => {
-    const { username, password } = user;
-    if(!username || !password) return false; 
+export const verifyCredentialAndUsername = async (
+    user: UserAttributes
+): Promise<boolean> => {
+    const { usuario, contrasena } = user;
+    if(!usuario || !contrasena) return false; 
 
     try {
-        // Unique username
-        const unique = await User.findOne({where: {username: username}}); 
+        // Unique usuario
+        const unique = await User.findOne({where: {usuario: usuario}}); 
+        console.log(unique)
         if (unique) return false; 
         return true;
     } catch (error) {
@@ -16,7 +19,10 @@ export const verifyCredentialAndUsername = async (user: UserAttributes) => {
 }
 
 // for register user
-export const verifyCredential = async (username: string, password: string): Promise<boolean> => {
-    if(!username || !password) return false; 
+export const verifyCredential = async (
+    usuario: string, 
+    contrasena: string
+): Promise<boolean> => {
+    if(!usuario || !contrasena) return false; 
     return true;
 }
