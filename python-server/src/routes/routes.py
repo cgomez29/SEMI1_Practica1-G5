@@ -4,8 +4,8 @@ urlAuth = {
 }
 
 urlUser = {
-    "getUser":  "/api/profile/<int:id>",
-    "signUp":   "/api/upload"
+    "getUser":      "/api/profile/<int:id>",
+    "updateUser":   "/api/profile/<int:id>"
 }
 
 urlAlbum= {

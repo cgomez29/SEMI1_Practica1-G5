@@ -58,7 +58,6 @@ def signUp():
         # insert data
         query = 'insert into practica1.usuario (nombre, contrasena, usuario, urlfoto) values (%s, %s, %s, %s)'
         result = dbWrite(query, (name, MD5(password), user, key))
-        print('WRITE DATABASE: ', result)
 
         # return value
         if result:
