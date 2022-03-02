@@ -1,8 +1,6 @@
 import { DataTypes, Model} from 'sequelize';
 
 import db from '../config/database.config';
-import User from './user.models'
-
 export interface FolderAttributes extends Model {   
     idFolder: number;
     nombre: string;
@@ -39,7 +37,5 @@ const Folder = db.define<FolderAttributes>('folder', {
         defaultValue: DataTypes.NOW,
     },
 });
-
-//Folder.belongsTo(User, { foreignKey: 'idUsuario', as: 'usuario' });
 
 export default Folder;

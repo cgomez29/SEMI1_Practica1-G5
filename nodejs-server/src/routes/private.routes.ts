@@ -1,7 +1,6 @@
 import { Router } from 'express';
 
-import passport, { session } from 'passport'
-import { uploadFile } from '../controllers/upload.controllers';
+import passport from 'passport'
 import {
     getUsuario,
     updateProfile
@@ -12,7 +11,9 @@ import {
     updateAlbum,
 } from '../controllers/folder.controllers'
 import { 
-    getAllPhotos
+    getAllPhotos,
+    addPhotoToAlbum,
+    getPhotoS3,
 } from '../controllers/photo.controllers'
 
 const router: Router = Router(); 
@@ -70,11 +71,22 @@ router.get(
     getAllPhotos
 );
 
+router.post(
+    '/album/photo',
+    passport.authenticate('jwt', { session: false }),
+    addPhotoToAlbum
+);
 
 router.post(
-    '/upload',
+    '/album/photo64',
     passport.authenticate('jwt', { session: false }),
-    uploadFile
+    getPhotoS3
 );
+
+// router.post(
+//     '/upload',
+//     passport.authenticate('jwt', { session: false }),
+//     uploadFile
+// );
 
 export default router; 

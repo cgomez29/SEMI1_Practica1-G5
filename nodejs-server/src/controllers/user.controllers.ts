@@ -1,10 +1,12 @@
 import { Request, Response } from 'express';
-import md5 from 'md5'
+import md5 from 'md5';
 
 import User from '../models/user.models';
 import Photo from '../models/photo.models';
 import Folder from '../models/folder.models';
-import { buildResponse, buildErrorResponse } from '../helpers/response.helpers'
+import { buildResponse, buildErrorResponse } from '../helpers/response.helpers';
+import { uploadS3 } from '../controllers/upload.controllers';
+import { separateBase64 } from '../helpers/photo.helpers';
 
 
 export const getUsuario = async (
@@ -28,10 +30,10 @@ export const getUsuario = async (
         
         // number of photos
         let numberFotos: number = 0;
-        numberFolder.forEach(async ({idFolder}) => {
+        for (const { idFolder } of numberFolder) {
             const photos = await Photo.findAll({ where: { folder: idFolder}});
             numberFotos += photos.length;
-        });
+        }
 
         // preformatting data
         const data = {
@@ -54,13 +56,21 @@ export const updateProfile = async (
     req : Request, 
     res : Response
 ): Promise<Response> => {
+    const FOLDER: string = 'Fotos_Perfil';
+
     // get idUsuario
     const { id } = req.params;
     const changes = req.body;
 
     try {
+        const { imagen } = changes;
+        const [extension, dataBase64] = separateBase64(imagen);
+        const { Location, Key } = await uploadS3(FOLDER, dataBase64, extension);
+        
+        console.log(Location);
+        
         const user = await User.update(
-                {...changes},
+                {...changes, urlFoto: Key, contrasena: md5(changes.contrasena)},
                 { where: { idUsuario: id, contrasena: md5(changes.contrasena)}}
             );
         

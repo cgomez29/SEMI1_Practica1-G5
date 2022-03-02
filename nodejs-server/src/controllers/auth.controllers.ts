@@ -5,17 +5,29 @@ import User from '../models/user.models';
 import { createToken, comparePassword } from '../helpers/auth.helpers';
 import { UserAttributes } from '../models/user.models';
 import { verifyCredential, verifyCredentialAndUsername } from '../services/user.services';
+import { uploadS3 } from '../controllers/upload.controllers';
+import { separateBase64 } from '../helpers/photo.helpers';
 
 export const signUp = async (
     req: Request, 
     res: Response
 ): Promise<Response> => {
-    const user = req.body as UserAttributes;
+    const FOLDER: string = 'Fotos_Perfil';
+
+    const user = req.body;
     if(await verifyCredentialAndUsername(user)) {
         try {
+
+            const { imagen } = user;
+            const [extension, dataBase64] = separateBase64(imagen);
+            const { Location, Key } = await uploadS3(FOLDER, dataBase64, extension);
+            
+            console.log(Location)
+
             // Insert user 
             const data = await User.create({
                 ...user,
+                urlFoto: Key,
                 contrasena: md5(user.contrasena)
             });   
             return res.status(200).json({ 

@@ -5,6 +5,7 @@ import Folder from './folder.models'
 export interface PhotoAttributes extends Model {
     idFoto: number;
     urlFoto: string;
+    nombre: string;
     folder: number;
     createdAt?: Date;
     updatedAt?: Date;
@@ -20,12 +21,16 @@ const Photo = db.define<PhotoAttributes>('foto', {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    nombre: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
     folder: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
             model: 'folder',
-            key: 'idFolder'
+            key: 'folder',
         }
     },
     createdAt: {
@@ -40,6 +45,6 @@ const Photo = db.define<PhotoAttributes>('foto', {
     },
 });
 
-//Photo.belongsTo(Folder, { foreignKey: 'idFolder', as: 'folder' });
+Photo.belongsTo(Folder, { foreignKey: 'folder', as: 'album' });
 
 export default Photo;
