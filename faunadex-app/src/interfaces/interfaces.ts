@@ -6,11 +6,13 @@ export interface UserRegister {
   lastname: string;
   password1: string;
   password2: string;
-  photo?: File;
+  photo?: any;
 }
 
 export interface Auth {
   userName: string;
+  uId: number;
+  token: string;
   logged: boolean;
 }
 
@@ -38,3 +40,18 @@ export type UiAction =
       type: ActionType.UI_START_LOADING;
     }
   | { type: ActionType.UI_FINISH_LOADING };
+
+export interface User {
+  folders: number;
+  name: string;
+  photos: number;
+  uId: number;
+  urlFoto: string;
+  userName: string;
+}
+
+export type UserAction =
+  | { type: ActionType.USER_GET_PROFILE; payload: User }
+  | {
+      type: ActionType.USER_RESET_PROFILE;
+    };

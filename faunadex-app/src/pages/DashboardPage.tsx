@@ -1,19 +1,28 @@
+import { useAppSelector } from '../hooks/useRedux';
 import { PreviewImage } from '../components/PreviewImage';
 import { ButtonDashboard } from '../components/ButtonDashboard';
 
 export const DashboardPage = () => {
+  const { folders, name, photos, urlFoto, userName } = useAppSelector(
+    (state) => state.user
+  );
+
   return (
     <div className="animate__animated animate__fadeIn animate__fast p-2 dash-main-container">
       <div className="dashboard-container mb-5">
-        <PreviewImage />
+        <PreviewImage urlFoto={urlFoto} />
         <div className="d-flex flex-column ms-5">
-          <h2 className="name-title">Elmer Gustavo Sanchez</h2>
+          <h2 className="name-title">{name}</h2>
           <h5>
-            <i className="fa-solid fa-user me-2"></i> Usuario: sklfdjalsd
+            <i className="fa-solid fa-user me-2"></i> Usuario: {userName}
           </h5>
           <h5>
             <i className="fa-solid fa-sd-card me-3"></i>
-            Álbumes: 5
+            Álbumes: {folders}
+          </h5>
+          <h5>
+            <i className="fa-solid fa-camera me-3"></i>
+            Fotos: {photos}
           </h5>
         </div>
       </div>

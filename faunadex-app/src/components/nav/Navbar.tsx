@@ -3,11 +3,13 @@ import { NavLink } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/useRedux';
 
 import { logout } from '../../redux/actions/auth';
+import { resetProfile } from '../../redux/actions/user';
 
 export const Navbar = () => {
   const dispatch = useDispatch();
   const { userName } = useAppSelector((state) => state.auth);
   const onClick = () => {
+    dispatch(resetProfile());
     dispatch(logout());
   };
 

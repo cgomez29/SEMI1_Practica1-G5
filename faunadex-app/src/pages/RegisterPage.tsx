@@ -1,8 +1,12 @@
 import { Formik, Form } from 'formik';
-import * as Yup from 'yup';
+import { useDispatch } from 'react-redux';
 
 import { MyTextInput } from '../components/MyTextInput';
 import { UserRegister } from '../interfaces/interfaces';
+import { startRegister } from '../redux/actions/auth';
+
+import * as Yup from 'yup';
+import Swal from 'sweetalert2';
 
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png'];
 const validateSchema = Yup.object({
@@ -46,6 +50,9 @@ const intialValues: UserRegister = {
 };
 
 export const RegisterPage = () => {
+  const dispatch = useDispatch();
+  // const { loading } = useAppSelector((state) => state.ui);
+
   return (
     <div
       style={{
@@ -57,8 +64,21 @@ export const RegisterPage = () => {
       <Formik
         initialValues={intialValues}
         onSubmit={(values, { resetForm }) => {
-          resetForm();
-          console.log(values);
+          if (values.photo === undefined || values.photo === '') {
+            Swal.fire({
+              title: '¿Desea registrarse sin foto de perfil?',
+              showCancelButton: true,
+              confirmButtonText: 'Guardar',
+            }).then((result) => {
+              if (result.isConfirmed) {
+                dispatch(startRegister(values));
+                resetForm();
+              }
+            });
+          } else {
+            dispatch(startRegister(values));
+            resetForm();
+          }
         }}
         validationSchema={validateSchema}
       >

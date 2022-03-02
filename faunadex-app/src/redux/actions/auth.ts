@@ -1,18 +1,30 @@
-import { ActionType } from '../types/types';
-import { AuthAction, UiAction, UserRegister } from '../../interfaces/interfaces';
 import { Dispatch } from 'redux';
-import axios from 'axios';
-import { startLoading, finishLoading, setError } from './ui';
 
-type ActionsType = AuthAction | UiAction;
+import { ActionType } from '../types/types';
+import {
+  AuthAction,
+  UiAction,
+  User,
+  UserAction,
+  UserRegister,
+} from '../../interfaces/interfaces';
+import { serverLogin, serverProfile, serverRegister } from '../../helpers/serviceApi';
+import { startLoading, finishLoading, setError, removeError } from './ui';
+
+import Swal from 'sweetalert2';
+import { setProfile } from './user';
+
+type ActionsType = AuthAction | UiAction | UserAction;
 // =============================================================================
 // DISPATCH ACCIONS
 // =============================================================================
-export const login = (userName: string): AuthAction => {
+export const login = (userName: string, uId: number, token: string): AuthAction => {
   return {
     type: ActionType.AUTH_LOGIN,
     payload: {
       userName,
+      uId,
+      token,
       logged: true,
     },
   };
@@ -30,13 +42,30 @@ export const startLogin =
     try {
       dispatch(startLoading());
 
-      const res = await axios.get('https://pokeapi.co/api/v2/pokemon/pikachu');
-      console.log(res.data);
-      dispatch(login(userName));
+      // LOGIN
+      const { data } = await serverLogin(userName, password);
+      const { idUsuario, token, usuario } = data;
+      dispatch(login(usuario, idUsuario, token));
+
+      // Profile
+      const { data: dataProfile } = await serverProfile(idUsuario, token);
+      const { numberFolder, numberFotos, user } = dataProfile.data;
+      const userProfile: User = {
+        folders: numberFolder,
+        name: user.nombre,
+        photos: numberFotos,
+        uId: idUsuario,
+        urlFoto: user.urlFoto,
+        userName: usuario,
+      };
+      dispatch(setProfile(userProfile));
+
       dispatch(finishLoading());
-    } catch (e) {
-      // dispatch(setError('Credenciales Invalidas'));
+    } catch (e: any) {
       dispatch(setError('Error al iniciar sesion'));
+      dispatch(removeError());
+      dispatch(finishLoading());
+      Swal.fire('Error', 'Usuario o Contraseña invalidas', 'error');
     }
   };
 
@@ -44,12 +73,12 @@ export const startRegister =
   (user: UserRegister) => async (dispatch: Dispatch<ActionsType>) => {
     try {
       dispatch(startLoading());
-
-      const res = await axios.get('https://pokeapi.co/api/v2/pokemon/pikachu');
-      console.log(res.data);
-      dispatch(login(user.username));
+      const { data } = await serverRegister(user);
+      const { idUsuario, token, usuario } = data;
+      dispatch(login(usuario, idUsuario, token));
       dispatch(finishLoading());
     } catch (e) {
-      dispatch(setError('Error al iniciar sesion'));
+      dispatch(finishLoading());
+      Swal.fire('Error', 'El nombre de usuario ya existe', 'error');
     }
   };
