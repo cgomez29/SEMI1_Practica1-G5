@@ -1,4 +1,3 @@
-import { Request, Response } from 'express';
 import { PutObjectRequest } from 'aws-sdk/clients/s3';
 import AWS from 'aws-sdk';
 import randomBytes from 'randombytes';
@@ -8,49 +7,45 @@ import { s3_credentials } from '../config/s3.config';
 //acceso a Amazon s3 con las credenciales declaradas.
 const s3 = new AWS.S3(s3_credentials);
 
-const generate_key = (filename: String) => {
+const generate_key = (folder: String, extension: String) => {
   var random_str = randomBytes(16).toString('hex');
-  var file_parts = filename.split('.');
-  var file_extension = file_parts[file_parts.length - 1].toLocaleLowerCase();
-  return `Fotos_Perfil/${random_str}.${file_extension}`;
+  //var file_parts = filename.split('.');
+  //var file_extension = file_parts[file_parts.length - 1].toLocaleLowerCase();
+  // 
+  return `${folder}/${random_str}.${extension}`;
 };
 
-const uploadS3 = async (file: any) => {
-  const Key = generate_key(file.name);
+// Subir a s3
+export const uploadS3 = async (folder: string, dataBase64: String, extension: String) => {
+  const Key = generate_key(folder, extension);
   const bucket = process.env.S3_BUCKET || '';
-  const buff = Buffer.from(file.data, 'base64');
+  const buff = Buffer.from(dataBase64, 'base64');
 
   const params: PutObjectRequest = {
     Bucket: bucket,
     Key: Key,
     Body: buff,
-    ContentType: file.mimetype,
+    ContentType: 'image',
     //ACL: 'public-read',
   };
 
   return await s3.upload(params).promise();
 };
 
-export const uploadFile = async (
-  req: Request,
-  res: Response
-): Promise<Response> => {
-  let file = req?.files?.file;
-  let state: boolean = false;
-  let msg = {};
+// Subir a s3
+export const getObjectS3 = async (id: string) => {
+  const bucket = process.env.S3_BUCKET as string;
 
-  await uploadS3(file)
-    .then(({ Location, Key }) => {
-        console.log({ Location, Key })
-      msg = { location: Location, key: Key };
-      state = false;
-    })
-    .catch((err) => {
-      console.log('File save error: ', err);
-      state = true;
-    });
+  let getParams = {
+      Bucket: bucket,
+      Key: id
+    }
 
-  if (state)
-    return res.status(500).json({ msg: 'Error: Could not upload file!' });
-  return res.status(200).json( msg );
+  s3.getObject(getParams, async (err, data) => {
+    if (err) 
+        return err;
+    const { Body } = data as any;
+    let dataBase64 = await Buffer.from(Body).toString('base64'); //byte to base 64
+    return dataBase64;
+  })
 };
