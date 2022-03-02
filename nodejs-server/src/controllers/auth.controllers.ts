@@ -19,15 +19,21 @@ export const signUp = async (
         try {
 
             const { imagen } = user;
-            const [extension, dataBase64] = separateBase64(imagen);
-            const { Location, Key } = await uploadS3(FOLDER, dataBase64, extension);
-            
-            console.log(Location)
+            let key:string = '';
+
+            if (imagen != ''){
+                const [extension, dataBase64] = separateBase64(imagen);
+                const { Location, Key } = await uploadS3(FOLDER, dataBase64, extension);
+                key = Key;
+                console.log(Location)
+            }
+
+                
 
             // Insert user 
             const data = await User.create({
                 ...user,
-                urlFoto: Key,
+                urlFoto: key,
                 contrasena: md5(user.contrasena)
             });   
             return res.status(200).json({ 

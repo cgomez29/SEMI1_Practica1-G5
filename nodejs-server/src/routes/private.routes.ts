@@ -13,7 +13,7 @@ import {
 import { 
     getAllPhotos,
     addPhotoToAlbum,
-    getPhotoS3,
+    getPhotoByAlbum,
 } from '../controllers/photo.controllers'
 
 const router: Router = Router(); 
@@ -64,11 +64,18 @@ router.get(
 // Photo
 // ======================================================
 
-// return all photos by album 
+// return all photos by all album 
 router.get(
     '/album/photo/:id',
     passport.authenticate('jwt', { session: false }),
     getAllPhotos
+);
+
+// return all photos by album 
+router.get(
+    '/photo/:id',
+    passport.authenticate('jwt', { session: false }),
+    getPhotoByAlbum
 );
 
 router.post(
@@ -77,11 +84,6 @@ router.post(
     addPhotoToAlbum
 );
 
-router.post(
-    '/album/photo64',
-    passport.authenticate('jwt', { session: false }),
-    getPhotoS3
-);
 
 // router.post(
 //     '/upload',

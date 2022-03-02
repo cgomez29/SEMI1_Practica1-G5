@@ -73,12 +73,32 @@ export const addPhotoToAlbum = async (
     }
 };
 
-export const getPhotoS3 = async (req: Request, res: Response) => {
-    // get idPhoto
-    const { key } = req.body;
-    console.log(key)
+export const getPhotoByAlbum = async (req: Request, res: Response) => {
+    // get idFolder
+    const { id } = req.params;  
 
-    console.log(await getObjectS3(key))
+    try {
+       // number of folders/albums
+       const photos = await Photo.findAll({
+           where: {
+               folder: id,
+           },
+           attributes: { 
+               exclude: [ 'folder', 'createdAt', 'updatedAt' ]
+           }
+       });
+        // preformatting data
+        const data = {
+            photos: photos,
+        }
 
-    res.json({msg: "EFE"});
-}
+        if (data) {
+            // asnwer
+            return res.status(200).json(buildResponse('Successfull', data));
+        }
+        return res.status(400).json(buildErrorResponse('No data found', data));
+    } catch (error) {
+        return res.status(400).json(buildErrorResponse('No data found', error));
+    }
+};
+
