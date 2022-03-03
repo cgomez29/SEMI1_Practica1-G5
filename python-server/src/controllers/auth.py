@@ -1,5 +1,6 @@
 from src import app
 from flask import request
+from datetime import datetime
 from src.utils.utils import (
     response,
     MD5,
@@ -55,17 +56,30 @@ def signUp():
         extension, dataBase64 = splitImage(imagenUrl)
         result, key = uploadS3(folder, dataBase64, extension)
         
-        # insert data
+        # insert data user
         query = 'insert into practica1.usuario (nombre, contrasena, usuario, urlfoto) values (%s, %s, %s, %s)'
         result = dbWrite(query, (name, MD5(password), user, key))
-
+        
         # return value
         if result:
             query = 'select * from practica1.usuario WHERE usuario = %s AND contrasena = %s'            
             resultSelect = dbRead(query, (user, MD5(password)))
             actualUser = resultSelect[0]
+            idUser = actualUser[0]
             
-            return response(True, '-1', actualUser[3], actualUser[0], None, 200)
+            # insert defaul album
+            query = 'insert into practica1.folder (nombre, usuario) values (%s, %s)'
+            result = dbWrite(query, ('Fotos del perfil', idUser))
+            
+            # insert profile photo
+            query = 'select idfolder from practica1.folder WHERE usuario = %s AND nombre = %s'            
+            resultSelect = dbRead(query, (idUser, 'Fotos del perfil'))
+            idFolder = resultSelect[0][0]
+            namePhoto = 'myphoto ' + datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+            query = 'insert into practica1.foto (folder, nombre, urlfoto) values (%s, %s, %s)'
+            result = dbWrite(query, (idFolder, namePhoto, key))
+
+            return response(True, '-1', actualUser[3], idUser, None, 200)
         else:
             return response(False, '', '', 0, 'Request failed', 400)
             

@@ -8,8 +8,8 @@ from src.config.env import BUCKET_NAME
 from src.config.s3 import S3
 from src.config.database import DB
 
-
 # =========================== GENERAL =======================
+
 
 def response(status_: bool, token_: str, usuario_: str, idUsuario_: int, error_: str, statusCode_: int):
     return jsonify({
@@ -41,19 +41,6 @@ def responseUser200(idUsuario_: int, nombre_: str, usuario_: str,
     }), 200
 
 
-def responseUpdateUser200(idUsuario_: int, nombre_: str, usuario_: str,
-                          urlFoto_: str, numberPhotos_: int, numberFolders_: int):
-
-    return jsonify({
-        "status": True,
-        "message": 'Successfull',
-        "data": {
-            "user": [1]
-        },
-        "errors": None
-    }), 200
-
-
 def responseUser(status_: bool, message_: str, data_, error_: str, statusCode_: int):
 
     return jsonify({
@@ -62,6 +49,17 @@ def responseUser(status_: bool, message_: str, data_, error_: str, statusCode_: 
         "data": data_,
         "errors": error_
     }), statusCode_
+
+
+def responseUserUpdated():
+    return jsonify({
+        "status": True,
+        "message": 'Successfull',
+        "data": {
+            "user": [1]
+        },
+        "errors": None
+    }), 200
 
 
 def MD5(password: str):
@@ -116,7 +114,6 @@ def dbWrite(query: str, params):
     try:
         cursor.execute(query, params)
         DB.commit()
-        print(cursor.description)
         cursor.close()
 
         return True
