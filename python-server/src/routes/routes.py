@@ -15,5 +15,6 @@ urlAlbum= {
 }
 
 urlPhoto = {
-    "getPhotos":  "/api/album/photo/<int:id>"
+    "createPhoto":      "/api/album/photo",
+    "getPhoto":         "/api/photo/<int:idAlbum>",
 }

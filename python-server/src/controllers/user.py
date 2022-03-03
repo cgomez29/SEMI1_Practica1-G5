@@ -1,6 +1,6 @@
-from flask import request, jsonify
-from src import app
 from datetime import datetime
+from flask import request
+from src import app
 
 from src.routes.routes import urlUser
 from src.utils.utils import (
