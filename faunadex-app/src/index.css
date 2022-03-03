@@ -122,3 +122,28 @@ body {
   margin-bottom: 20px;
   font-weight: bold;
 }
+
+.texto-cententer {
+  text-align: center;
+}
+
+.profile-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.image-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  width: 40%;
+}
+
+.text-inputs-profile {
+  width: 60%;
+}
+
+.image-perfile {
+  width: 70% !important;
+}

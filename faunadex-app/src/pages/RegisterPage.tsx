@@ -14,11 +14,11 @@ const validateSchema = Yup.object({
     .min(3, 'Debe tener 3 caracteres como minimo')
     .required('Requerido'),
   name: Yup.string()
-    .matches(/^[aA-zZ\s]+$/, 'Solo son permitidos letras')
+    .matches(/^[a-zA-Z\u00C0-\u017F\s]+$/, 'Solo son permitidos letras')
     .min(2, 'Debe tener 2 caracteres como minimimo')
     .required('Requerido'),
   lastname: Yup.string()
-    .matches(/^[aA-zZ\s]+$/, 'Solo son permitidos letras')
+    .matches(/^[a-zA-Z\u00C0-\u017F\s]+$/, 'Solo son permitidos letras')
     .required('Requerido'),
   password1: Yup.string()
     .min(6, 'Debe tener 6 caracteres como minimo')
@@ -68,7 +68,7 @@ export const RegisterPage = () => {
             Swal.fire({
               title: '¿Desea registrarse sin foto de perfil?',
               showCancelButton: true,
-              confirmButtonText: 'Guardar',
+              confirmButtonText: 'Si',
             }).then((result) => {
               if (result.isConfirmed) {
                 dispatch(startRegister(values));

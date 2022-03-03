@@ -76,6 +76,20 @@ export const startRegister =
       const { data } = await serverRegister(user);
       const { idUsuario, token, usuario } = data;
       dispatch(login(usuario, idUsuario, token));
+
+      // Profile
+      const { data: dataProfile } = await serverProfile(idUsuario, token);
+      const { numberFolder, numberFotos, user: uProfile } = dataProfile.data;
+      const userProfile: User = {
+        folders: numberFolder,
+        name: uProfile.nombre,
+        photos: numberFotos,
+        uId: idUsuario,
+        urlFoto: uProfile.urlFoto,
+        userName: usuario,
+      };
+      dispatch(setProfile(userProfile));
+
       dispatch(finishLoading());
     } catch (e) {
       dispatch(finishLoading());

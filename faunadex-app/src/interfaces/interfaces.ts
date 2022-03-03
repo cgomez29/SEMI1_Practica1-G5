@@ -9,6 +9,13 @@ export interface UserRegister {
   photo?: any;
 }
 
+export interface UserProfile {
+  username: string;
+  name: string;
+  password1: string;
+  photo?: any;
+}
+
 export interface Auth {
   userName: string;
   uId: number;
@@ -55,3 +62,8 @@ export type UserAction =
   | {
       type: ActionType.USER_RESET_PROFILE;
     };
+
+export interface Album {
+  albumId: string;
+  name: string;
+}
