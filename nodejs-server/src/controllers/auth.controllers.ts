@@ -1,34 +1,32 @@
-import md5 from 'md5';
 import { Request, Response } from 'express';
+import moment from 'moment';
+import md5 from 'md5';
 
-import User from '../models/user.models';
+import User, { UserAttributes } from '../models/user.models';
+import Folder from '../models/folder.models';
+import Photo from '../models/photo.models';
 import { createToken, comparePassword } from '../helpers/auth.helpers';
-import { UserAttributes } from '../models/user.models';
+import { separateBase64 } from '../helpers/photo.helpers';
 import { verifyCredential, verifyCredentialAndUsername } from '../services/user.services';
 import { uploadS3 } from '../controllers/upload.controllers';
-import { separateBase64 } from '../helpers/photo.helpers';
+import { FOLDER_PROFILE, NAME_DEFAULT_FOLDER } from '../config/folder.config'
 
 export const signUp = async (
     req: Request, 
     res: Response
 ): Promise<Response> => {
-    const FOLDER: string = 'Fotos_Perfil';
-
     const user = req.body;
     if(await verifyCredentialAndUsername(user)) {
         try {
-
             const { imagen } = user;
             let key:string = '';
 
             if (imagen != ''){
                 const [extension, dataBase64] = separateBase64(imagen);
-                const { Location, Key } = await uploadS3(FOLDER, dataBase64, extension);
+                const { Location, Key } = await uploadS3(FOLDER_PROFILE, dataBase64, extension);
                 key = Key;
                 console.log(Location)
             }
-
-                
 
             // Insert user 
             const data = await User.create({
@@ -36,6 +34,23 @@ export const signUp = async (
                 urlFoto: key,
                 contrasena: md5(user.contrasena)
             });   
+
+            // Insert Folder
+            const { idFolder } = await Folder.create({
+                nombre: NAME_DEFAULT_FOLDER, 
+                usuario: data.idUsuario
+            });
+            
+
+            if (imagen != ''){
+                // insert photo of profile
+                await Photo.create({
+                    urlFoto: key,
+                    nombre:  `myphoto ${moment().format('YYYY-MM-DD HH:mm:s')}`,
+                    folder: idFolder,
+                });
+            }
+            
             return res.status(200).json({ 
                 status: true, 
                 token: createToken(data), 
@@ -110,5 +125,15 @@ export const signIn = async (
         usuario: "", 
         idUsuario: 0, 
         error: "The username or password are incorrect" 
+    });
+}
+
+
+export const testServer = async (
+    req: Request, 
+    res: Response
+): Promise<Response> => {
+    return res.status(400).json({  
+        message: "Server NodeJS" 
     });
 }
