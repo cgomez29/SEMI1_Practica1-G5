@@ -9,9 +9,9 @@ urlUser = {
 }
 
 urlAlbum= {
-    "getAlbum":     "/api/album/<int:id>",
-    "createAlbum":  "/api/album",
-    "putAlbum":     "/api/album/<int:id>"
+    "createAlbum":      "/api/album",
+    "updateAlbum":      "/api/album/<int:idAlbum>",
+    "getAllAlbums":     "/api/album/<int:idUser>",
 }
 
 urlPhoto = {
