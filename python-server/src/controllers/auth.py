@@ -49,39 +49,60 @@ def signUp():
         password = request.json['contrasena']
         imagenUrl = request.json['imagen']
         
-        if not name or not user or not password or not imagenUrl:
+        if not name or not user or not password:
             return response(False, '', '', 0, 'Missing fields to complete', 400)
-    
-        # upload image 
-        extension, dataBase64 = splitImage(imagenUrl)
-        result, key = uploadS3(folder, dataBase64, extension)
-        
-        # insert data user
-        query = 'insert into practica1.usuario (nombre, contrasena, usuario, urlfoto) values (%s, %s, %s, %s)'
-        result = dbWrite(query, (name, MD5(password), user, key))
-        
-        # return value
-        if result:
-            query = 'select * from practica1.usuario WHERE usuario = %s AND contrasena = %s'            
-            resultSelect = dbRead(query, (user, MD5(password)))
-            actualUser = resultSelect[0]
-            idUser = actualUser[0]
-            
-            # insert defaul album
-            query = 'insert into practica1.folder (nombre, usuario) values (%s, %s)'
-            result = dbWrite(query, ('Fotos del perfil', idUser))
-            
-            # insert profile photo
-            query = 'select idfolder from practica1.folder WHERE usuario = %s AND nombre = %s'            
-            resultSelect = dbRead(query, (idUser, 'Fotos del perfil'))
-            idFolder = resultSelect[0][0]
-            namePhoto = 'myphoto ' + datetime.today().strftime('%Y-%m-%d %H:%M:%S')
-            query = 'insert into practica1.foto (folder, nombre, urlfoto) values (%s, %s, %s)'
-            result = dbWrite(query, (idFolder, namePhoto, key))
 
-            return response(True, '-1', actualUser[3], idUser, None, 200)
-        else:
-            return response(False, '', '', 0, 'Request failed', 400)
+        if not imagenUrl:
+            # insert data user
+            query = 'insert into practica1.usuario (nombre, contrasena, usuario) values (%s, %s, %s)'
+            result = dbWrite(query, (name, MD5(password), user))
+            
+            # return value
+            if result:
+                query = 'select * from practica1.usuario WHERE usuario = %s AND contrasena = %s'            
+                resultSelect = dbRead(query, (user, MD5(password)))
+                actualUser = resultSelect[0]
+                idUser = actualUser[0]
+                
+                # insert defaul album
+                query = 'insert into practica1.folder (nombre, usuario) values (%s, %s)'
+                result = dbWrite(query, ('Fotos del perfil', idUser))
+
+                return response(True, '-1', actualUser[3], idUser, None, 200)
+            else:
+                return response(False, '', '', 0, 'Request failed', 400)
+
+        if imagenUrl:
+            # upload image 
+            extension, dataBase64 = splitImage(imagenUrl)
+            result, key = uploadS3(folder, dataBase64, extension)
+            
+            # insert data user
+            query = 'insert into practica1.usuario (nombre, contrasena, usuario, urlfoto) values (%s, %s, %s, %s)'
+            result = dbWrite(query, (name, MD5(password), user, key))
+        
+            # return value
+            if result:
+                query = 'select * from practica1.usuario WHERE usuario = %s AND contrasena = %s'            
+                resultSelect = dbRead(query, (user, MD5(password)))
+                actualUser = resultSelect[0]
+                idUser = actualUser[0]
+                
+                # insert defaul album
+                query = 'insert into practica1.folder (nombre, usuario) values (%s, %s)'
+                result = dbWrite(query, ('Fotos del perfil', idUser))
+                
+                # insert profile photo
+                query = 'select idfolder from practica1.folder WHERE usuario = %s AND nombre = %s'            
+                resultSelect = dbRead(query, (idUser, 'Fotos del perfil'))
+                idFolder = resultSelect[0][0]
+                namePhoto = 'myphoto ' + datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+                query = 'insert into practica1.foto (folder, nombre, urlfoto) values (%s, %s, %s)'
+                result = dbWrite(query, (idFolder, namePhoto, key))
+
+                return response(True, '-1', actualUser[3], idUser, None, 200)
+            else:
+                return response(False, '', '', 0, 'Request failed', 400)
             
     except Exception:
         return response(False, '', '', 0, 'Request failed', 400)
