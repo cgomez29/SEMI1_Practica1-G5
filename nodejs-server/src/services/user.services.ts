@@ -1,6 +1,6 @@
 import User, { UserAttributes } from '../models/user.models';
 
-// for register user
+// To register the user
 export const verifyCredentialAndUsername = async (
     user: UserAttributes
 ): Promise<boolean> => {
@@ -18,7 +18,7 @@ export const verifyCredentialAndUsername = async (
     }
 }
 
-// for register user
+// To register the user
 export const verifyCredential = async (
     usuario: string, 
     contrasena: string

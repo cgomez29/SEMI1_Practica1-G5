@@ -8,7 +8,7 @@ import Folder, { FolderAttributes } from '../models/folder.models';
 import { buildResponse, buildErrorResponse } from '../helpers/response.helpers';
 import { separateBase64 } from '../helpers/photo.helpers';
 import { uploadS3 } from '../controllers/upload.controllers';
-import { FOLDER_PROFILE, NAME_DEFAULT_FOLDER } from '../config/folder.config'
+import { FOLDER_PROFILE, NAME_DEFAULT_FOLDER } from '../config/folder.config';
 
 export const getUsuario = async (
         req : Request, 
@@ -63,13 +63,12 @@ export const updateProfile = async (
 
     try {
         const { imagen } = changes;
-        let user;
 
         if (imagen != ''){
             const [extension, dataBase64] = separateBase64(imagen);
             const { Location, Key } = await uploadS3(FOLDER_PROFILE, dataBase64, extension);
             console.log(Location);
-            user = await User.update(
+            await User.update(
                 {usuario: changes.usuario, nombre: changes.nombre, urlFoto: Key},
                 { where: { idUsuario: id, contrasena: md5(changes.contrasena)}}
             );
@@ -87,22 +86,28 @@ export const updateProfile = async (
             });
 
         } else {
-            user = await User.update(
+            await User.update(
                     { usuario: changes.usuario, nombre: changes.nombre},
                     { where: { idUsuario: id, contrasena: md5(changes.contrasena)}}
                 );
         }
+
+
+        const returnUser = await User.findOne({
+            where: {idUsuario: id},
+            attributes: {exclude: ["createdAt", "updatedAt",'contrasena']}
+        });
         
         // preformatting data
         const data = {
-            user
+            user: returnUser
         }
         
         if (data) {
             // asnwer
             return res.status(200).json(buildResponse('Successfull', data));
         }
-        return res.status(400).json(buildErrorResponse('Password incorrect', data));
+        return res.status(400).json(buildErrorResponse('Password or User incorrect', data));
     } catch (error) {
         return res.status(400).json(buildErrorResponse("No data found", error));
     }

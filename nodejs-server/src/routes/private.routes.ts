@@ -9,6 +9,7 @@ import {
     getAllAlbums,
     createAlbum,
     updateAlbum,
+    deleteAlbum,
 } from '../controllers/folder.controllers'
 import { 
     getAllPhotos,
@@ -25,13 +26,13 @@ const router: Router = Router();
 // return user information
 router.get(
     '/profile/:id',
-    passport.authenticate('jwt', { session: false }),
+    // passport.authenticate('jwt', { session: false }),
     getUsuario
 );
 
 router.put(
     '/profile/:id',
-    passport.authenticate('jwt', { session: false }),
+    // passport.authenticate('jwt', { session: false }),
     updateProfile
 );
 
@@ -41,20 +42,26 @@ router.put(
 
 router.post(
     '/album',
-    passport.authenticate('jwt', { session: false}),
+    // passport.authenticate('jwt', { session: false }),
     createAlbum
 );
 
 router.put(
     '/album/:id',
-    passport.authenticate('jwt', { session: false}),
+    // passport.authenticate('jwt', { session: false }),
     updateAlbum
+);
+
+router.delete(
+    '/album/:id',
+    // passport.authenticate('jwt', { session: false }),
+    deleteAlbum
 );
 
 // return all albums
 router.get(
     '/album/:id',
-    passport.authenticate('jwt', { session: false }),
+    // passport.authenticate('jwt', { session: false }),
     getAllAlbums
 );
 
@@ -67,28 +74,21 @@ router.get(
 // return all photos by all album 
 router.get(
     '/album/photo/:id',
-    passport.authenticate('jwt', { session: false }),
+    // passport.authenticate('jwt', { session: false }),
     getAllPhotos
 );
 
 // return all photos by album 
 router.get(
     '/photo/:id',
-    passport.authenticate('jwt', { session: false }),
+    // passport.authenticate('jwt', { session: false }),
     getPhotoByAlbum
 );
 
 router.post(
     '/album/photo',
-    passport.authenticate('jwt', { session: false }),
+    // passport.authenticate('jwt', { session: false }),
     addPhotoToAlbum
 );
-
-
-// router.post(
-//     '/upload',
-//     passport.authenticate('jwt', { session: false }),
-//     uploadFile
-// );
 
 export default router; 
