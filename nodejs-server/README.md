@@ -20,4 +20,10 @@
 | DB_HOST | Database server |
 | DB_NAME | Database name |
 | DB_USERNAME | Database username |
-| PORT | NodeJS server port  |
+| DB_PASSWORD | Database password |
+| PORT | NodeJS server port |
+| AWS_REGION | AWS S3 bucket region |
+| AWS_ACCESS_KEY | AWS S3 bucket access key  |
+| AWS_SECRET_KEY | AWS S3 bucket secret key |
+| S3_BUCKET | AWS S3 bucket name  |
+| JWT_SECRET | Token  |

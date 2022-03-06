@@ -15,6 +15,16 @@ const app: Application = express();
 const PORT = process.env.PORT;
 app.set('port', PORT);
 
+// middlewares 
+app.use(morgan('dev'));
+app.use(fileUpload());
+app.use(cors());
+app.use(express.urlencoded({ limit: '10mb', extended: true }));
+app.use(express.json({ limit: '10mb'}));
+app.use(express.static('public'));
+app.use(passport.initialize());
+passport.use(passport_middleware);
+
 // db conection test
 const test = async () => {
     try {
@@ -26,17 +36,6 @@ const test = async () => {
 }
 
 test();
-
-// middlewares 
-app.use(morgan('dev'));
-app.use(fileUpload());
-app.use(cors());
-app.use(express.urlencoded({ limit: '10mb', extended: true }));
-app.use(express.json({ limit: '10mb'}));
-app.use(express.static('public'));
-app.use(passport.initialize());
-passport.use(passport_middleware);
-
 
 // routes 
 app.use(`/api`, userRoutes);
