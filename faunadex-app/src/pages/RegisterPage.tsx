@@ -125,6 +125,7 @@ export const RegisterPage = () => {
                   setFieldValue('photo', e.target.files ? e.target.files[0] : undefined)
                 }
                 accept="image/*"
+                className="input-pet-file"
               />
 
               <button className="btn btn-primary mt-3" type="submit">

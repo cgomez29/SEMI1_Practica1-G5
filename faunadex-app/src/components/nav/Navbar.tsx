@@ -1,9 +1,11 @@
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/useRedux';
+import { albumLogout } from '../../redux/actions/album';
 
 import { logout } from '../../redux/actions/auth';
 import { resetProfile } from '../../redux/actions/user';
+import { photoLogout } from '../../redux/actions/photo';
 
 export const Navbar = () => {
   const dispatch = useDispatch();
@@ -11,6 +13,8 @@ export const Navbar = () => {
   const onClick = () => {
     dispatch(resetProfile());
     dispatch(logout());
+    dispatch(albumLogout());
+    dispatch(photoLogout());
   };
 
   return (
@@ -31,6 +35,46 @@ export const Navbar = () => {
                   to="/dashboard"
                 >
                   {userName}
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive ? 'nav-link active' : 'nav-link'
+                  }
+                  to="/profile"
+                >
+                  <i className="fa-solid fa-user"></i>
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive ? 'nav-link active' : 'nav-link'
+                  }
+                  to="/upload"
+                >
+                  <i className="fa-solid fa-upload"></i>
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive ? 'nav-link active' : 'nav-link'
+                  }
+                  to="/album"
+                >
+                  <i className="fa-solid fa-folder"></i>
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive ? 'nav-link active' : 'nav-link'
+                  }
+                  to="/photo"
+                >
+                  <i className="fa-solid fa-photo-film"></i>
                 </NavLink>
               </li>
             </ul>

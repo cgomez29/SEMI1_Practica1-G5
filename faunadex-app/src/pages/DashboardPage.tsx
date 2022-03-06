@@ -8,8 +8,8 @@ export const DashboardPage = () => {
   );
 
   return (
-    <div className="animate__animated animate__fadeIn animate__fast p-2 dash-main-container">
-      <div className="dashboard-container mb-5">
+    <div className="animate__animated animate__fadeIn animate__fast p-2 dash-main-container mt-5 p-1">
+      <div className="dashboard-container mb-5 mt-2">
         <PreviewImage urlFoto={urlFoto} />
         <div className="d-flex flex-column ms-5">
           <h2 className="name-title">{name}</h2>
@@ -27,7 +27,12 @@ export const DashboardPage = () => {
         </div>
       </div>
 
-      <div className="dashboard-btns mb-1">
+      <div
+        className="dashboard-btns mb-2"
+        style={{
+          marginTop: '80px',
+        }}
+      >
         <ButtonDashboard
           description="Editar perfil"
           icon="fa-solid fa-address-card me-2"

@@ -31,6 +31,26 @@ export const userReducer = (state: User = INITIAL_STATE, action: UserAction): Us
         urlFoto: action.payload.urlFoto,
         userName: action.payload.userName,
       };
+    case ActionType.USER_MORE_ONE_ALBUMS:
+      return {
+        ...state,
+        folders: state.folders + 1,
+      };
+    case ActionType.USER_MORE_ONE_PHOTOS:
+      return {
+        ...state,
+        photos: state.photos + 1,
+      };
+    case ActionType.USER_LESS_ONE_ALBUMS:
+      return {
+        ...state,
+        folders: state.folders - 1,
+      };
+    case ActionType.USER_CUSTOM_COUNT_PHOTO:
+      return {
+        ...state,
+        photos: state.photos - action.payload,
+      };
 
     default:
       return state;

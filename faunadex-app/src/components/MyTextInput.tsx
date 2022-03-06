@@ -17,7 +17,7 @@ export const MyTextInput = ({ label, ...props }: Props) => {
       <label className="label-pet" htmlFor={props.id || props.name}>
         {label}
       </label>
-      <input className="input-pet" {...field} {...props} />
+      <input className="input-pet" {...field} {...props} autoComplete="of" />
       <ErrorMessage name={props.name} component="span" className="label-error" />
       {/* {meta.touched && meta.error && <span className="error">{meta.error}</span>} */}
     </>

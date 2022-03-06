@@ -7,7 +7,7 @@ export const DashboardRoutes = () => {
   return (
     <>
       <Navbar />
-      <div className="p-5">
+      <div className="p-2">
         <Routes>
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/profile" element={<ProfilePage />} />

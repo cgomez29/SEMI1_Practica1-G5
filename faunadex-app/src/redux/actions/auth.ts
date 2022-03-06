@@ -1,20 +1,13 @@
 import { Dispatch } from 'redux';
 
 import { ActionType } from '../types/types';
-import {
-  AuthAction,
-  UiAction,
-  User,
-  UserAction,
-  UserRegister,
-} from '../../interfaces/interfaces';
-import { serverLogin, serverProfile, serverRegister } from '../../helpers/serviceApi';
+import { AuthAction, UiAction, UserRegister } from '../../interfaces/interfaces';
+import { serverLogin, serverRegister } from '../../helpers/serviceApi';
 import { startLoading, finishLoading, setError, removeError } from './ui';
 
 import Swal from 'sweetalert2';
-import { setProfile } from './user';
 
-type ActionsType = AuthAction | UiAction | UserAction;
+type ActionsType = AuthAction | UiAction;
 // =============================================================================
 // DISPATCH ACCIONS
 // =============================================================================
@@ -47,19 +40,6 @@ export const startLogin =
       const { idUsuario, token, usuario } = data;
       dispatch(login(usuario, idUsuario, token));
 
-      // Profile
-      const { data: dataProfile } = await serverProfile(idUsuario, token);
-      const { numberFolder, numberFotos, user } = dataProfile.data;
-      const userProfile: User = {
-        folders: numberFolder,
-        name: user.nombre,
-        photos: numberFotos,
-        uId: idUsuario,
-        urlFoto: user.urlFoto,
-        userName: usuario,
-      };
-      dispatch(setProfile(userProfile));
-
       dispatch(finishLoading());
     } catch (e: any) {
       dispatch(setError('Error al iniciar sesion'));
@@ -76,19 +56,6 @@ export const startRegister =
       const { data } = await serverRegister(user);
       const { idUsuario, token, usuario } = data;
       dispatch(login(usuario, idUsuario, token));
-
-      // Profile
-      const { data: dataProfile } = await serverProfile(idUsuario, token);
-      const { numberFolder, numberFotos, user: uProfile } = dataProfile.data;
-      const userProfile: User = {
-        folders: numberFolder,
-        name: uProfile.nombre,
-        photos: numberFotos,
-        uId: idUsuario,
-        urlFoto: uProfile.urlFoto,
-        userName: usuario,
-      };
-      dispatch(setProfile(userProfile));
 
       dispatch(finishLoading());
     } catch (e) {

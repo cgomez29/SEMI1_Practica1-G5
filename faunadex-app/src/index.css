@@ -38,7 +38,9 @@ body {
 }
 .button-link {
   background: none;
-  border: none;
+  border: 1px solid white;
+  border-radius: 5px;
+  /* color: red; */
 }
 .input-group-pet {
   display: flex;
@@ -146,4 +148,173 @@ body {
 
 .image-perfile {
   width: 70% !important;
+}
+
+.text-album {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  border-radius: 10px;
+  border: 3px solid #292929;
+  color: var(--gris-oscuro);
+  padding: 5px;
+  text-transform: uppercase;
+  transition: 0.3s ease all;
+  width: 200px;
+  height: 100px;
+  overflow: hidden;
+  cursor: pointer;
+}
+.text-album > h3 {
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.text-album:hover {
+  font-weight: bold;
+  color: black;
+}
+
+.text-active {
+  color: black;
+}
+
+.icon-album {
+  font-size: 80px;
+}
+
+.group-check-input {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.photo-main-container {
+  background-color: black !important;
+  border-radius: 10px;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  height: 85vh;
+  margin: 0px auto;
+  opacity: 0.8 !important;
+  padding: 5px;
+  width: 99%;
+  justify-content: center;
+}
+
+.photo-albums-container {
+  border-radius: 10px;
+  border: 2px solid white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 2px;
+  width: 10%;
+  height: 100%;
+  overflow: auto;
+}
+
+.photo-albums-container::-webkit-scrollbar {
+  display: none;
+}
+
+.photo-container-carrusel {
+  margin-left: 5px;
+  width: 90%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.text-album-photo {
+  width: 99%;
+  height: 100px;
+}
+
+.text-album-photo > h3 {
+  font-size: 20px !important;
+}
+.carrusel {
+  align-items: center;
+  padding: 8px;
+}
+.carrusel-img {
+  width: 85%;
+  margin-bottom: 5px;
+}
+
+.corrusel-info {
+  display: flex;
+  flex-direction: column;
+  margin-left: 5px;
+  align-items: center;
+}
+
+.input-pet-file::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+.input-pet-file::before {
+  content: 'Seleccine una foto';
+  display: inline-block;
+  background: linear-gradient(top, #f9f9f9, #e3e3e3);
+  border: 2px solid #999;
+  border-radius: 3px;
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.preview-img-upload {
+  height: 60%;
+}
+
+select {
+  /* -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none; */
+  appearance: none;
+  outline: 0;
+  box-shadow: none;
+  border: 0 !important;
+  background: black;
+  background-image: none;
+  flex: 1;
+  padding: 0 0.5em;
+  color: #fff;
+  cursor: pointer;
+}
+select::-ms-expand {
+  display: none;
+}
+
+.select-custom {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  border-radius: 0.25em;
+  height: 30px;
+  border: 1px solid var(--gris-oscuro);
+}
+.select-custom::after {
+  content: '\25BC';
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.1em;
+  background: #2b2e2e;
+  cursor: pointer;
+  pointer-events: none;
+  transition: 0.25s all ease;
+}
+.select-custom:hover::after {
+  color: black;
 }

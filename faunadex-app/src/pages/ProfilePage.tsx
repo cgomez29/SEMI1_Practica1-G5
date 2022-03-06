@@ -50,7 +50,7 @@ export const ProfilePage = () => {
   };
 
   return (
-    <div className="animate__animated animate__fadeIn animate__faster dash-main-container">
+    <div className="animate__animated animate__fadeIn animate__faster dash-main-container mt-5 p-1">
       <h2
         className="name-title texto-cententer text-profile mb-5"
         style={{
@@ -68,7 +68,7 @@ export const ProfilePage = () => {
         <div className="text-inputs-profile">
           <Formik
             initialValues={initialValues}
-            onSubmit={(values) => {
+            onSubmit={async (values) => {
               if (values.photo === undefined) {
                 Swal.fire({
                   title: '¿Desea actualizar sin modificar la foto de perfil?',
@@ -116,9 +116,10 @@ export const ProfilePage = () => {
                       )
                     }
                     accept="image/*"
+                    className="input-pet-file"
                   />
                   <button className="btn btn-success mt-3 mb-3" type="submit">
-                    Acutualizar
+                    Actualizar
                   </button>
                 </div>
               </Form>
