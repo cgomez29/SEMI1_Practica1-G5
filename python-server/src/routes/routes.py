@@ -12,6 +12,7 @@ urlAlbum= {
     "createAlbum":      "/api/album",
     "updateAlbum":      "/api/album/<int:idAlbum>",
     "getAllAlbums":     "/api/album/<int:idUser>",
+    "deleteAlbum":      "/api/album/<int:idAlbum>",
 }
 
 urlPhoto = {

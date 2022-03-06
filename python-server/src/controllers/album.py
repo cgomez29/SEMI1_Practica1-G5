@@ -94,7 +94,7 @@ def getAllAlbums(idUser):
         # get id usuario
         query = 'select * from practica1.folder WHERE usuario = %s'
         allAlbums = dbRead(query, (idUser))
-        
+
         if allAlbums:
             folders = []
             for row in allAlbums:
@@ -118,8 +118,45 @@ def getAllAlbums(idUser):
                 ]
             ),  mimetype='application/json'), 200
 
-        
         return responseUser(False, 'Error', None, None, 400)
-    
+
     except Exception as e:
         return responseUser(False, 'Error', None, None, 400)
+
+
+@app.route(urlAlbum['deleteAlbum'], methods=['DELETE'])
+def deleteAlbum(idAlbum):
+    try:
+        
+        # check if exist folder
+        queryNumberPhotos = 'select COUNT(idfolder) from practica1.folder WHERE idfolder = %s'
+        result = dbRead(queryNumberPhotos, (idAlbum))
+        exist = result[0][0]
+        
+        if exist != 0:
+            # numberPhotos
+            queryNumberPhotos = 'select COUNT(idfoto) from practica1.foto WHERE folder = %s'
+            result = dbRead(queryNumberPhotos, (idAlbum))
+            numberPhotos = result[0][0]
+
+            # deleteFolder
+            queryDeletePhotos = 'delete from practica1.folder WHERE idfolder = %s'
+            result = dbWrite(queryDeletePhotos, (idAlbum))
+
+            return jsonify(
+                {
+                    "status": True,
+                    "message": "Successfull",
+                    "data": {
+                        "idFolder": idAlbum,
+                        "deleted_photos": numberPhotos,
+                    },
+                    "errors": None
+                }
+            )
+
+        return responseUser(False, 'No data found', None, None, 400)
+
+    except Exception as e:
+        print(e)
+        return responseUser(False, 'No data found', None, None, 400)
