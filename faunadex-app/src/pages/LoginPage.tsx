@@ -1,7 +1,10 @@
 import { Formik, Form } from 'formik';
+import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 
 import { MyTextInput } from '../components/MyTextInput';
+import { startLogin } from '../redux/actions/auth';
+import { useAppSelector } from '../hooks/useRedux';
 
 const validationSchema = Yup.object({
   username: Yup.string().min(3, 'Debe tener 3 caracteres o mas').required('Requerido'),
@@ -11,20 +14,26 @@ const validationSchema = Yup.object({
 });
 
 export const LoginPage = () => {
+  const dispatch = useDispatch();
+  const { loading } = useAppSelector((state) => state.ui);
+
+  if (loading) return <h1>Cargando ...</h1>;
   return (
     <div
       style={{
-        width: '70%',
+        width: '50%',
         margin: '0px auto',
       }}
+      className="animate__animated animate__fadeIn animate__fast"
     >
       <Formik
         initialValues={{
           username: '',
           password: '',
         }}
-        onSubmit={(values) => {
-          console.log(values);
+        onSubmit={(values, { resetForm }) => {
+          dispatch(startLogin(values.username, values.password));
+          resetForm();
         }}
         validationSchema={validationSchema}
       >

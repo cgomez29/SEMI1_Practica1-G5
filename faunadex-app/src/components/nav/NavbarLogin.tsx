@@ -4,7 +4,7 @@ export const NavbarLogin = () => {
     <>
       <nav className="navbar navbar-expand-lg navbar-dark shadow-5-strong">
         <div className="container-fluid">
-          <NavLink className="navbar-brand" to="/login">
+          <NavLink className="navbar-brand" to="/auth/login">
             <i className="fa-solid fa-paw me-2"></i>
             Faunadex
           </NavLink>
@@ -15,7 +15,7 @@ export const NavbarLogin = () => {
                   className={({ isActive }) =>
                     isActive ? 'nav-link active' : 'nav-link'
                   }
-                  to="/login"
+                  to="/auth/login"
                 >
                   Login
                 </NavLink>
@@ -25,7 +25,7 @@ export const NavbarLogin = () => {
                   className={({ isActive }) =>
                     isActive ? 'nav-link active' : 'nav-link'
                   }
-                  to="/register"
+                  to="/auth/register"
                 >
                   Registro
                 </NavLink>
@@ -37,7 +37,7 @@ export const NavbarLogin = () => {
                   className={({ isActive }) =>
                     isActive ? 'nav-link active' : 'nav-link'
                   }
-                  to="/register"
+                  to="/auth/register"
                 >
                   <i className="fa-brands fa-github me-2"></i>
                   GITHUB

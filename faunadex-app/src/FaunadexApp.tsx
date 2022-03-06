@@ -1,11 +1,18 @@
 import { AppRouter } from './routes/AppRouter';
+import { Provider } from 'react-redux';
+import { store } from './redux/store/store';
 
 import 'bootswatch/dist/sandstone/bootstrap.min.css';
 export const FaunadexApp = () => {
+  // const user = useAppSelector((state) => state.auth);
+  // useEffect(() => {
+  //   localStorage.setItem('user', JSON.stringify(user));
+  // }, [user]);
+
   return (
-    <>
+    <Provider store={store}>
       <AppRouter />
-    </>
+    </Provider>
   );
 };
 // DEPENDENCIAS
