@@ -1,8 +1,8 @@
-**Universidad de San Carlos de Guatemala**
-**Facultad de Ingeniería**
-**Escuela de Ciencias y Sistemas**
-**Seminario de sistemas 1 - Sección B**
-**Ing. Ludwing Federico Altan Sac**
+**Universidad de San Carlos de Guatemala**  
+**Facultad de Ingeniería**  
+**Escuela de Ciencias y Sistemas**  
+**Seminario de sistemas 1 - Sección B**  
+**Ing. Ludwing Federico Altan Sac**  
 
 <p align="center"><img src="./img/USAC_logo.png" width="300" height="300"/></p>
 
