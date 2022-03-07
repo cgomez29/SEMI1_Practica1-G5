@@ -140,11 +140,11 @@
 
 ### Login
 
-<p align="center"><img src="./img/app-login.png"/></p>
+<p align="center"><img src="./img/app-login.PNG"/></p>
 
 ### Registro
 
-<p align="center"><img src="./img/app-registro.png"/></p>
+<p align="center"><img src="./img/app-registro.PNG"/></p>
 
 ### Perfil
 
@@ -152,16 +152,16 @@
 
 ### Editar Perfil
 
-<p align="center"><img src="./img/app-perfil-editar.png"/></p>
+<p align="center"><img src="./img/app-perfil-editar.PNG"/></p>
 
 ### Álbum
 
-<p align="center"><img src="./img/app-album.png"/></p>
+<p align="center"><img src="./img/app-album.PNG"/></p>
 
 ### Subir fotos
 
-<p align="center"><img src="./img/app-foto-subir.png"/></p>
+<p align="center"><img src="./img/app-foto-subir.PNG"/></p>
 
 ### Ver fotos
 
-<p align="center"><img src="./img/app-foto.png"/></p>
+<p align="center"><img src="./img/app-foto.PNG"/></p>
