@@ -1,5 +1,9 @@
 import { NavLink } from 'react-router-dom';
 export const NavbarLogin = () => {
+  const navigateTo = () => {
+    window.open('https://github.com/cgomez29/SEMI1_Practica1-G5');
+  };
+
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark shadow-5-strong">
@@ -33,15 +37,10 @@ export const NavbarLogin = () => {
             </ul>
             <ul className="navbar-nav d-flex">
               <li className="nav-item ">
-                <NavLink
-                  className={({ isActive }) =>
-                    isActive ? 'nav-link active' : 'nav-link'
-                  }
-                  to="/auth/register"
-                >
+                <button className="nav-link button-link" onClick={navigateTo}>
                   <i className="fa-brands fa-github me-2"></i>
                   GITHUB
-                </NavLink>
+                </button>
               </li>
             </ul>
           </div>

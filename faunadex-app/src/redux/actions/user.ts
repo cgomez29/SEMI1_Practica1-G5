@@ -100,6 +100,6 @@ export const startUpdateProfile =
       Swal.fire('Exitoso', 'Se actualizaron los datos correctamente', 'success');
     } catch (error) {
       dispatch(finishLoading());
-      Swal.fire('Error', 'El nombre de usuario ya existe', 'error');
+      Swal.fire('Error', 'Error en la contraseña', 'error');
     }
   };
