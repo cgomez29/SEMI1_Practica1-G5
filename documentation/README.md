@@ -46,7 +46,16 @@
 **Políticas de permisos (1 política aplicada)**
 
 - Nombre de la política: AmazonS3FullAccess
-- Tipo de política: Política administrada por AWS## ec2-admin
+- Tipo de política: Política administrada por AWS
+
+## admin-s3
+
+**Políticas de permisos (1 política aplicada)**
+
+- Nombre de la política: AmazonS3FullAccess
+- Tipo de política: Política administrada por AWS
+
+## ec2-admin
 
 **Políticas de permisos (1 política aplicada)**
 
