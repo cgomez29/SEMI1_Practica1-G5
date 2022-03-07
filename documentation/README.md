@@ -67,5 +67,9 @@
 ## EC2
 
 ## Instancia de RDS
+<p align="center"><img src="./img/rds.png"/></p>
+
+### Base de datos
+<p align="center"><img src="./img/rds-db.png"/></p>
 
 ## Aplicación Web
