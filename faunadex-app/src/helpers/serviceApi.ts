@@ -5,7 +5,9 @@ import { getToBase64 } from './user';
 
 // const API_SERVER = `http://${process.env.REACT_APP_SERVER}/api`;
 // const API_SERVER = `http://3.22.97.170:4000/api`;
+
 const API_SERVER = `http://semi1-practica1-load-balancer-558368108.us-east-2.elb.amazonaws.com:4000/api`;
+
 const options = {
   headers: { 'content-type': 'application/json' },
 };

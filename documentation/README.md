@@ -35,11 +35,9 @@
 
 <p align="center"><img src="./img/arquitectura.png"/></p>
 
-
-### Se creo la aplicación WEB con la biblioteca de ReactJS. Se utilizaron dos intancias EC2 en una esta el servidor hecho con python y el otro con nodejs, se implemento un balanceador de carga, para distribuir las cargas de la aplicación y asi contar con un servicio de alta disponibilida, los datos son almacenados en una base de datos de MYSQL con el servicio RDS, las imagenes subidas a la aplicación son almacendas en un bucket de S3. 
+### Se creo la aplicación WEB con la biblioteca de ReactJS. Se utilizaron dos intancias EC2 en una esta el servidor hecho con python y el otro con nodejs, se implemento un balanceador de carga, para distribuir las cargas de la aplicación y asi contar con un servicio de alta disponibilida, los datos son almacenados en una base de datos de MYSQL con el servicio RDS, las imagenes subidas a la aplicación son almacendas en un bucket de S3.
 
 # 🔸Usuarios IAM
-
 
 ## practica1-grupo5-S3
 
@@ -87,31 +85,7 @@
 }
 ```
 
-## EC2
-**Instancias**
-<p align="center"><img src="./img/ec2-instancias.png"/></p>
-
-**Aplication load balancer**
-<p align="center"><img src="./img/loadbalancers.png"/></p>
-
-**Target group**
-<p align="center"><img src="./img/target-group.png"/></p>
-
-## Instancia de RDS
-<p align="center"><img src="./img/rds.png"/></p>
-
-### RDS configuración
-<p align="center"><img src="./img/rds-db-config.png"/></p>
-
-### ER
-<p align="center"><img src="./img/ER.png"/></p>
-
-### Base de datos
-<p align="center"><img src="./img/rds-db.png"/></p>
-
-## Aplicación Web
-
-#### Buckets de S3 de un sitio estático
+### Sitio estático
 
 <p align="center"><img src="./img/bucket-app.jpeg"/></p>
 
@@ -131,3 +105,63 @@
   ]
 }
 ```
+
+## EC2
+
+**Instancias**
+
+<p align="center"><img src="./img/ec2-instancias.png"/></p>
+
+**Aplication load balancer**
+
+<p align="center"><img src="./img/loadbalancers.png"/></p>
+
+**Target group**
+
+<p align="center"><img src="./img/target-group.png"/></p>
+
+## Instancia de RDS
+
+<p align="center"><img src="./img/rds.png"/></p>
+
+### RDS configuración
+
+<p align="center"><img src="./img/rds-db-config.png"/></p>
+
+### ER
+
+<p align="center"><img src="./img/ER.png"/></p>
+
+### Base de datos
+
+<p align="center"><img src="./img/rds-db.png"/></p>
+
+## Aplicación Web
+
+### Login
+
+<p align="center"><img src="./img/app-login.PNG"/></p>
+
+### Registro
+
+<p align="center"><img src="./img/app-registro.PNG"/></p>
+
+### Perfil
+
+<p align="center"><img src="./img/app-perfil.jpeg"/></p>
+
+### Editar Perfil
+
+<p align="center"><img src="./img/app-perfil-editar.PNG"/></p>
+
+### Álbum
+
+<p align="center"><img src="./img/app-album.PNG"/></p>
+
+### Subir fotos
+
+<p align="center"><img src="./img/app-foto-subir.PNG"/></p>
+
+### Ver fotos
+
+<p align="center"><img src="./img/app-foto.PNG"/></p>
