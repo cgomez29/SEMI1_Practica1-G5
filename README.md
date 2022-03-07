@@ -1,1 +1,1 @@
-## Seminario de sistemas 1
+# Práctica 1 - FAUNADEX
