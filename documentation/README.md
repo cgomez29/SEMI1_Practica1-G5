@@ -33,13 +33,24 @@
 
 # 🔸Arquitectura utilizada
 
+<p align="center"><img src="./img/arquitectura.png"/></p>
+
+
+### Se creo la aplicación WEB con la biblioteca de ReactJS. Se utilizaron dos intancias EC2 en una esta el servidor hecho con python y el otro con nodejs, se implemento un balanceador de carga, para distribuir las cargas de la aplicación y asi contar con un servicio de alta disponibilida, los datos son almacenados en una base de datos de MYSQL con el servicio RDS, las imagenes subidas a la aplicación son almacendas en un bucket de S3. 
+
 # 🔸Usuarios IAM
+
 
 ## practica1-grupo5-S3
 
 **Políticas de permisos (1 política aplicada)**
 
 - Nombre de la política: AmazonS3FullAccess
+- Tipo de política: Política administrada por AWS## ec2-admin
+
+**Políticas de permisos (1 política aplicada)**
+
+- Nombre de la política: AmazonEC2FullAccess
 - Tipo de política: Política administrada por AWS
 
 # 🔸Capturas de Pantalla
@@ -68,6 +79,14 @@
 ```
 
 ## EC2
+**Instancias**
+<p align="center"><img src="./img/ec2-instancias.png"/></p>
+
+**Aplication load balancer**
+<p align="center"><img src="./img/loadbalancers.png"/></p>
+
+**Target group**
+<p align="center"><img src="./img/target-group.png"/></p>
 
 ## Instancia de RDS
 
