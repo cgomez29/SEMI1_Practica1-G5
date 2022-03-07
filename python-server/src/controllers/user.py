@@ -59,6 +59,14 @@ def updateUser(id):
         password = request.json['contrasena']
         imagenUrl = request.json['imagen']
         
+        query = 'select contrasena from practica1.usuario where idusuario = %s'            
+        resultSelect = dbRead(query, (id))
+        passwordDb = resultSelect[0][0]
+        passwordMd5 = MD5(password)
+        
+        if passwordDb != passwordMd5:
+            return responseUser(False, 'Wrong password when updating ', None, None, 400)
+
         if imagenUrl:
             # upload image
             extension, dataBase64 = splitImage(imagenUrl)
@@ -67,10 +75,10 @@ def updateUser(id):
             # update data
             query = '''
             update practica1.usuario u
-            SET u.usuario = %s, u.nombre = %s, u.contrasena = %s, urlfoto = %s
+            SET u.usuario = %s, u.nombre = %s, urlfoto = %s
             WHERE u.idusuario = %s; 
             '''
-            resultQuery = dbWrite(query, (user, name, MD5(password), key, id))
+            resultQuery = dbWrite(query, (user, name, key, id))
 
             # insert profile photo
             query = 'select idfolder from practica1.folder WHERE usuario = %s AND nombre = %s'            
@@ -89,10 +97,10 @@ def updateUser(id):
             # update data
             query = '''
             update practica1.usuario u
-            SET u.usuario = %s, u.nombre = %s, u.contrasena = %s
+            SET u.usuario = %s, u.nombre = %s
             WHERE u.idusuario = %s;
             '''
-            resultQuery = dbWrite(query, (user, name, MD5(password), id))
+            resultQuery = dbWrite(query, (user, name, id))
 
             # return
             if resultQuery:

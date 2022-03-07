@@ -122,7 +122,7 @@ def dbWrite(query: str, params):
         print("Error %d: %s" % (e.args[0], e.args[1]))
         cursor.close()
         return False
-
+    
 # =========================== S3 ===========================
 
 
