@@ -61,6 +61,8 @@ export const updateProfile = async (
     const { id } = req.params;
     const changes = req.body;
 
+    let user;
+
     try {
         const { imagen } = changes;
 
@@ -68,7 +70,7 @@ export const updateProfile = async (
             const [extension, dataBase64] = separateBase64(imagen);
             const { Location, Key } = await uploadS3(FOLDER_PROFILE, dataBase64, extension);
             console.log(Location);
-            await User.update(
+            user = await User.update(
                 {usuario: changes.usuario, nombre: changes.nombre, urlFoto: Key},
                 { where: { idUsuario: id, contrasena: md5(changes.contrasena)}}
             );
@@ -86,12 +88,14 @@ export const updateProfile = async (
             });
 
         } else {
-            await User.update(
+            user = await User.update(
                     { usuario: changes.usuario, nombre: changes.nombre},
                     { where: { idUsuario: id, contrasena: md5(changes.contrasena)}}
                 );
         }
 
+        if (user[0] == 0)
+            return res.status(400).json(buildErrorResponse("Not updated", ""));
 
         const returnUser = await User.findOne({
             where: {idUsuario: id},
