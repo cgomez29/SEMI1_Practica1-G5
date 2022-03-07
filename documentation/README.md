@@ -98,6 +98,16 @@
 <p align="center"><img src="./img/target-group.png"/></p>
 
 ## Instancia de RDS
+<p align="center"><img src="./img/rds.png"/></p>
+
+### RDS configuración
+<p align="center"><img src="./img/rds-db-config.png"/></p>
+
+### ER
+<p align="center"><img src="./img/ER.png"/></p>
+
+### Base de datos
+<p align="center"><img src="./img/rds-db.png"/></p>
 
 ## Aplicación Web
 
